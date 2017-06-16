@@ -1,6 +1,6 @@
 {
   "name": "antd-wrapper",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "./index.js",
   "dependencies": {
     "antd": "^2.11.0",
