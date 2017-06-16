@@ -24,12 +24,14 @@
     "webpack": "^2.6.1"
   },
   "devDependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
     "prepublishOnly": "npm run build",
     "postpublish": "echo 'Package published!'",
     "build": "cp -rf node_modules/antd/dist/ dist && cp -rf node_modules/antd/lib/ lib && cp -rf src/ dist/slstyle && echo 'dist and lib folder constructed'",
-    "example": "npm run build && webpack --progress && node example/server.js"
+    "example": "npm run build && NODE_ENV=development node example/server.js"
   }
 }

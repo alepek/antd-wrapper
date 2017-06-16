@@ -1,3 +1,7 @@
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const shared = {
   module: {
     rules: [
@@ -20,39 +24,33 @@ const shared = {
   },
 };
 
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-/**
- * This is the Webpack configuration file for production.
- */
 module.exports = {
   devtool: 'source-map',
 
-  entry: {
-    app: ['App.jsx'],
-  },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    'index.jsx',
+  ],
 
   output: {
     path: `${__dirname}/build/`,
     filename: '[name]-[hash].js',
+    publicPath: 'http://localhost:3000/',
+  },
+
+  devServer: {
+    hot: true,
+    contentBase: path.resolve(__dirname, 'build'),
+    publicPath: 'http://localhost:3000/',
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       template: 'example/index.html',
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': "'production'",
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true,
     }),
   ],
 
